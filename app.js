@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
-var mong00se = require('mongoose');
+var mongoose = require('mongoose');
 var config = require('./config');
+var setupController = require('./controllers/setupController');
 
 var port = process.env.PORT || 3000;
 
@@ -9,6 +10,6 @@ app.use('/assets', express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 
-mong00se.connect(config.getDBConnectionString());
-
-applisten(port);
+mongoose.connect(config.getDBConnectionString());
+setupController(app);
+app.listen(port);
